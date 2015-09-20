@@ -9,8 +9,7 @@ Implemented Polynomial Regression for the below datasets:
 
 • Sinusoid Dataset: This is an artificial dataset created by randomly sampling the function
 y = f(x) = 7.5 sin(2.25πx). You have a total of 100 samples of the input feature x and the
-corresponding noise corrupted output/function values y. In addition to this you are also given
-a validation set that has 50 samples. Since, there is only one input feature, I added higher powers
+corresponding noise corrupted output/function values y.Since, there is only one input feature, I added higher powers
 of the input feature p ∈ {1, 2, 3, . . . , 15} and calculated the RMSE on the validation set. 
 
 
