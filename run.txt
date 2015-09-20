@@ -1,0 +1,4 @@
+to run polynomial regression files:
+
+1. yacht_poly_reg.py yachtData.csv
+2. sinosuidal_poly_reg.py SinData_Train.csv SinData_Validation.csv
