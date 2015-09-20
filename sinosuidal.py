@@ -12,11 +12,13 @@ from numpy.linalg import inv
 from numpy import *#genfromtxt
 import matplotlib.pyplot as plt
 
+#load the data set 
 def load_csv(file):
     X = genfromtxt(file, delimiter=",",dtype=str)
     #print(X)
     return (X)
 
+#randomly shuffle the dataset
 def random_numpy_array(ar):
     np.random.shuffle(ar)
     #print(arr)
@@ -24,6 +26,8 @@ def random_numpy_array(ar):
     #print(arr)
     return arr
 
+#divide the dataset into 90% training and 10% test and return training features,
+#training class labels and test features and test class labels 
 def generate_set(X,i):
     X = np.array(X,dtype=float)
     if i == 1:
@@ -45,13 +49,13 @@ def generate_set(X,i):
         X = np.insert(X, 0, values=np.ones(X.shape[0]), axis=1)
         #print(X)
         X = np.insert(X,X.shape[1],values=y_training.flatten(),axis=1)
-
         y_training = X[:, -1]
         X_training = X[:,:-1]
         y_training = y_training.flatten()
         #print(X_training.shape)
         return (X_training,y_training)
 
+#normal equation function
 def normal_equation(x,y):
     # calculate weight vector with the formula inverse of(x.T* x)*x.T*y
     z = inv(dot(x.transpose(), x))
@@ -59,6 +63,7 @@ def normal_equation(x,y):
     #print(theta.shape)
     return theta
 
+#compute root mean square error
 def compute_rmse_sse(x,y,theta):
     m = y.size
     pred = x.dot(theta)
@@ -69,6 +74,7 @@ def compute_rmse_sse(x,y,theta):
     #print"SSE:",sse,"RMSE:",rmse
     return rmse,sse
 
+#main entrance of the code
 if __name__ == "__main__":
     if len(sys.argv) == 3:
         newfile = sys.argv[1]
