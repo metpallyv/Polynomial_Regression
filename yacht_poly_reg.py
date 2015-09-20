@@ -1,3 +1,5 @@
+#polynomial regression for yacht data set
+
 __author__ = 'Vardhaman'
 import sys
 import csv
@@ -11,11 +13,13 @@ from numpy.linalg import inv
 from numpy import *#genfromtxt
 feature = []
 
+#load the data set
 def load_csv(file):
     X = genfromtxt(file, delimiter=",",dtype=str)
     #print(X)
     return (X)
 
+#randomly shuffle the array
 def random_numpy_array(ar):
     np.random.shuffle(ar)
     #print(arr)
@@ -23,6 +27,7 @@ def random_numpy_array(ar):
     #print(arr)
     return arr
 
+#normalize the data using zscore normalization
 def normalize(matrix,sd,me):
     with np.errstate(divide='ignore'):
         a = matrix
@@ -35,7 +40,6 @@ def normalize(matrix,sd,me):
                 sd_list.append(np.std(a[:,i]))
                 mean_list.append(np.mean(a[:,i]))
             return b,sd_list,mean_list
-
         else:
             res = np.empty(shape=[a.shape[0],0])
             for i in range(a.shape[1]):
@@ -47,6 +51,8 @@ def normalize(matrix,sd,me):
         res = np.nan_to_num(res)
     return res,sd,me
 
+#divide the dataset into 90% training and 10% test and return training features,
+#training class labels and test features and test class labels 
 def generate_set(X,i):
     X = np.array(X,dtype=float)
     Y = X[:,-1]
@@ -96,9 +102,9 @@ def generate_set(X,i):
         training_class_names_list.append(y_training)
         start = end
         end = end+num_test
-
     return test_attri_list,test_class_names_list,training_attri_list,training_class_names_list
 
+#normal equation function
 def normal_equation(x,y):
     # calculate weight vector with the formula inverse of(x.T* x)*x.T*y
     z = inv(dot(x.transpose(), x))
@@ -106,6 +112,7 @@ def normal_equation(x,y):
     #print(theta.shape)
     return theta
 
+#compute root mean square error
 def compute_rmse_sse(x,y,theta):
     m = y.size
     pred = x.dot(theta)
@@ -138,14 +145,12 @@ if __name__ == "__main__":
                 #testRMSEValues.append(rmse2)
                 rmse_training_list.append(rmse2)
                 rmse_test_list.append(rmse1)
-
             meanTrainingRMSE = sum(rmse_training_list)/float(10)
             print "Mean RMSE for training p",p,"is",meanTrainingRMSE
             trainingRMSEValues.append(meanTrainingRMSE)
             meanTestingRMSE = sum(rmse_test_list)/float(10)
             testRMSEValues.append(meanTestingRMSE)
             print "Mean RMSE for test p",p,"is",meanTestingRMSE
-
         plt.suptitle("Yacht Ploynomial Regression plot")
         plt.plot(a,trainingRMSEValues)
         plt.ylabel("RMSE")
